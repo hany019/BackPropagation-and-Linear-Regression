@@ -469,6 +469,4 @@ if __name__ == "__main__":
         main()
     elif decision == "run_all_params":
         run_all_params()
-    elif decision == "find_best_params":
-        find_best_params()
     

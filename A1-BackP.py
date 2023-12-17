@@ -370,40 +370,6 @@ def run_all_params(start=1,end=None):
             # Reinitialize neural network
             initialize_nn()
 
-def find_best_params(train=False):
-    #Finds best parameters by calculating quadratic error and sorting them.
-    f = open('params.csv',encoding='utf-8')
-    errors = []
-    for item in f.readlines()[1:]:
-        try:
-            item = item.replace('\n','').split(',')
-            h = open('outputs-{}/errors_{}_0.csv'.format(setname,item[0]))
-            last = h.readlines()[-1]
-            qt = float(last.replace('\n','').split(',')[1])
-            qv = float(last.replace('\n','').split(',')[2])
-            errors.append({'qt':qt,'qv':qv,'id':item[0],'params':item[1:]})
-            h.close()
-        except FileNotFoundError:
-            pass
-    errors = sorted(errors,key=lambda x:x['qv']+x['qt'])
-    for err in errors[:10]:
-        print("Training ID: {} \tQuadratic error train set: {}\tQuadratic error validation set: {}\t Params: {}".format(err.get('id'), err.get('qt'), err.get('qv'),err.get('params')))
-    
-    if train:
-        #Sets best params, trains the model, and evaluates it.
-        global activation, epochs, alpha, n, nn
-        for err in errors[:10]:
-            activation = activations.index(err.get('params')[0])
-            epochs = int(err.get('params')[1])
-            n = float(err.get('params')[2])
-            alpha = float(err.get('params')[3])
-            nn.L = int(err.get('params')[4])
-            nn.n = layers[int(err.get('params')[4])-3]
-            initialize_nn()
-            for i in range(0,10):
-                print('Running Params ID {} with Test ID {}'.format(err.get('id'),i))
-                main_online_BP('_train_{}_{}'.format(err.get('id'),i))
-                initialize_nn()
 
 def plot_error(id):
     #Plot training and validation error during training.

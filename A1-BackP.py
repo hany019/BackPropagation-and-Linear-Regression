@@ -296,20 +296,6 @@ def main_online_BP(params):
         print("Finished BP 100%")
     return Y_PredScaled
 
-
-def read_epochs():
-    #Open file and store data in lists
-    with open('epochs.txt') as f:
-        Epo = [] # Empty list for epochs
-        TrainE = [] # Empty list for training errors
-        ValidE = [] # Empty list for validation errors
-        for i in f.readlines():
-            i = i.replace('\n','') # Remove newline characters
-            Epo.append(int(i.split('\t')[0])) # Append epoch number to list
-            TrainE.append(float(i.split('\t')[1])) # Append training error to list
-            ValidE.append(float(i.split('\t')[2])) # Append Validation error to list
-    return Epo,TrainE,ValidE
-
 def predict_BP(X_Test):
     Y_PredScaled = []
     for x in X_Test:

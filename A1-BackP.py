@@ -258,7 +258,7 @@ def main_online_BP(params):
     for epoch in range(0,epochs):
         error = error1 = 0
         treated = []
-        # Update NN for all patients in the training set
+        # Update NN for all patterns in the training set
         for pat in range(0,trainset_size-validation_size):
             r = random.randint(0,sys.maxsize) % (trainset_size-validation_size)
             while r in treated:
